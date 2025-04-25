@@ -54,6 +54,8 @@ function App() {
     setDirectionsResponse(results)
     setDistance(results.routes[0].legs[0].distance.text)
     setDuration(results.routes[0].legs[0].duration.text)
+
+    console.log('calculate')
     }
     
   }
@@ -115,21 +117,25 @@ function App() {
           <Autocomplete options={{
             
           }}>
-            <input type="text" placeholder="Origin"  required/>
+            <input type="text" ref={originRef} placeholder="Origin"  required/>
           </Autocomplete>
           <Autocomplete>
-            <input type="text" placeholder="Destination"  required/>
+            <input type="text" ref={destinationRef} placeholder="Destination"  required/>
           </Autocomplete>
           <ButtonGroup>
-            <Button colorScheme="pink" type="submit" onClick={calculateRoute}>
+            <Button colorScheme="pink" type="submit" onClick={() => calculateRoute()}>
               Calculate Route
             </Button>
             <IconButton aria-label="center back" onClick={clearRoute}  />
           </ButtonGroup>
         </HStack>
         <HStack spaceX={4} spaceY={4} mt={4} justifyContent="space-between">
-          <Text>Distance: {distance} </Text>
-          <Text>Duration: {duration}</Text>
+          <Text style={{
+            color: 'black'
+          }}>Distance: {distance} </Text>
+          <Text style={{
+            color: 'black'
+          }}>Duration: {duration}</Text>
           <IconButton
             aria-label="center back"
             onClick={() => map!.panTo(CENTER)}
