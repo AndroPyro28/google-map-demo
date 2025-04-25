@@ -30,8 +30,8 @@ function App() {
     libraries: ["places"],
   });
 
-  const [map, setMap] = useState(/** @type google.maps.Map */ (null))
-  const [directionsResponse, setDirectionsResponse] = useState(/** @type google.maps.Map */ null);
+  const [map, setMap] = useState<google.maps.Map | null>(/** @type google.maps.Map */ null)
+  const [directionsResponse, setDirectionsResponse] = useState<google.maps.Map | null>(/** @type google.maps.Map */ null);
   const [distance, setDistance] = useState<null | string | undefined>('');
   const [duration, setDuration] = useState<null | string | undefined>('');
 
@@ -52,8 +52,8 @@ function App() {
       travelMode: google.maps.TravelMode.DRIVING,
     })
     setDirectionsResponse(results)
-    setDistance(results.routes[0].legs[0].distance.text)
-    setDuration(results.routes[0].legs[0].duration.text)
+    setDistance(results?.routes[0]?.legs[0]?.distance?.text)
+    setDuration(results?.routes[0]?.legs[0]?.duration?.text)
 
     console.log('calculate')
     }
@@ -95,12 +95,12 @@ function App() {
             mapTypeControl: false,
             fullscreenControl: false,
           }}
-          onLoad={(map) => setMap(map)}
+          onLoad={(map: google.maps.Map) => setMap(map)}
         >
           <Marker position={CENTER} />
 
           {
-            directionsResponse && <DirectionsRenderer directions={directionsResponse}/>
+            directionsResponse && <DirectionsRenderer directions={directionsResponse}  />
           }
         </GoogleMap>
       </Box>
